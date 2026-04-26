@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <title>UDAY 2027 Class 11th Commerce - RolexCoderZ</title>
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 :root{--bg:#0a0a0f;--bg2:#111118;--bg3:#1a1a24;--card:#13131c;--card2:#1c1c28;--accent:#f5a623;--purple:#7c5cbf;--purple2:#9b7de8;--text:#f0f0f5;--muted:#6b6b85;--muted2:#8888a8;--border:#2a2a3a;}
 *{margin:0;padding:0;box-sizing:border-box;}
 html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;}
 ::-webkit-scrollbar{width:3px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
 .page{display:none;min-height:100vh;}.page.active{display:block;}
-#pg-player{display:none;min-height:100vh;flex-direction:column;}#pg-player.active{display:flex;}
 
 /* TOPBAR */
 .topbar{display:flex;align-items:center;justify-content:space-between;padding:11px 16px;background:var(--bg2);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;}
@@ -19,8 +19,8 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
 .logo{font-family:'Space Mono',monospace;font-size:14px;font-weight:700;}.logo span{color:var(--accent);}
 .ac-icon{width:33px;height:33px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:#000;flex-shrink:0;}
 .ac-icon.purple{background:var(--purple);}
-.back-btn{display:flex;align-items:center;gap:4px;padding:6px 11px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s;white-space:nowrap;}
-.back-btn:hover{background:var(--card2);}
+.back-btn{display:flex;align-items:center;gap:4px;padding:8px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .2s;white-space:nowrap;text-decoration:none;}
+.back-btn:hover{background:var(--card2);transform:translateX(-2px);}
 .btag{padding:4px 11px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;font-family:'Space Mono',monospace;font-size:11px;color:var(--muted2);flex-shrink:0;}
 
 /* BATCH DASHBOARD */
@@ -33,177 +33,64 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
 
 .divider{height:1px;background:var(--border);margin:0 22px 24px;}
 .tabs{display:flex;border-bottom:1px solid var(--border);background:var(--bg2);position:sticky;top:55px;z-index:100;}
-.tab{flex:1;padding:12px;text-align:center;font-size:11px;font-weight:600;letter-spacing:1px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;position:relative;}
-.tab.active{color:var(--purple2);border-bottom-color:var(--purple2);}
-.tab-count{position:absolute;top:8px;right:12px;font-size:9px;color:#818cf8;}
-.tab-icon{margin-right:4px;font-size:12px;}
+.tab{position:relative;flex:1;padding:14px;text-align:center;font-size:11px;font-weight:600;letter-spacing:1px;color:var(--muted);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;}
+.tab.active{color:var(--purple2);border-bottom-color:var(--purple2);background:var(--bg3);}
+.tab:hover{color:var(--accent);background:var(--card);}
+.tab-count{position:absolute;top:6px;right:12px;font-size:9px;color:#818cf8;}
+.tab-icon{margin-right:6px;font-size:13px;}
 
 /* OVERVIEW */
 .ov-sec{padding:18px 22px;}
-.desc-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:20px;overflow:hidden;}
+.desc-card{background:var(--card);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:20px;overflow:hidden;transition:all .2s;}
+.desc-card:hover{box-shadow:0 8px 25px rgba(245,166,35,.1);border-color:rgba(245,166,35,.3);}
 .desc-icon{display:inline-flex;width:32px;height:32px;background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.3);border-radius:8px;align-items:center;justify-content:center;margin-right:12px;flex-shrink:0;}
 .desc-row{display:flex;align-items:flex-start;gap:12px;margin-bottom:12px;}
 .desc-label{font-size:10.5px;color:var(--muted2);font-weight:500;}
 .desc-value{font-size:10.5px;font-weight:700;color:var(--text);}
 
-.sec-headh2{display:flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;font-size:17px;font-weight:700;letter-spacing:-0.35px;margin:24px 0 16px;padding-left:22px;border-left:3px solid var(--accent);}
-.sec-headh2::before{content:'📋';font-size:18px;}
+.sec-headh2{display:flex;align-items:center;gap:8px;font-family:'DM Sans',sans-serif;font-size:17px;font-weight:700;letter-spacing:-0.35px;margin:24px 0 16px;padding-left:22px;border-left:3px solid var(--accent);cursor:pointer;transition:all .2s;}
+.sec-headh2:hover{color:var(--accent);}
 
 .batch-details{padding:0 22px;}
-.batch-item{margin-bottom:16px;}
-.batch-num{font-size:10.5px;font-weight:700;color:var(--accent);margin-bottom:4px;}
+.batch-item{margin-bottom:16px;padding:12px;background:var(--bg3);border-radius:10px;border-left:3px solid var(--border);transition:all .2s;cursor:pointer;}
+.batch-item:hover{background:var(--card2);border-left-color:var(--accent);transform:translateX(4px);}
+.batch-num{font-size:10.5px;font-weight:700;color:var(--accent);margin-bottom:4px;display:inline-flex;align-items:center;gap:4px;}
 .batch-text{font-size:10.5px;color:var(--muted2);line-height:1.4;}
 .batch-text strong{color:var(--text);}
 
-/* BATCHES */
-#pg-batches{background:radial-gradient(ellipse at 50% 0%,rgba(245,166,35,.08) 0%,transparent 60%),var(--bg);}
-.bhero{padding:28px 22px 20px;text-align:center;}
-.lbadge{display:inline-flex;align-items:center;gap:6px;padding:5px 15px;background:rgba(245,166,35,.12);border:1px solid rgba(245,166,35,.3);border-radius:20px;font-size:10px;font-weight:600;letter-spacing:1px;color:var(--accent);margin-bottom:16px;}
-.ldot{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 1.5s infinite;}
-@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
-.btitle{font-family:'Bebas Neue',sans-serif;font-size:44px;line-height:1;letter-spacing:1px;margin-bottom:5px;}.btitle .ac{color:var(--accent);}
-.btagline{font-size:12px;color:var(--muted2);letter-spacing:.4px;margin-bottom:16px;}.btagline .or{color:var(--accent);font-weight:600;}
-.srow{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;}
-.sitem{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;letter-spacing:.4px;}
-.ddiv{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 0;}
-.dd{width:7px;height:7px;background:var(--accent);transform:rotate(45deg);}.dl{flex:1;max-width:110px;height:1px;background:var(--border);}
-.blist{padding:0 14px 36px;display:flex;flex-direction:column;gap:14px;}
+.subjects-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:16px;}
+.subj-card{padding:16px;background:var(--card2);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:all .2s;text-align:center;}
+.subj-card:hover{background:var(--card);border-color:var(--accent);transform:translateY(-2px);}
+.subj-name{font-weight:600;font-size:13px;margin-bottom:4px;}
+.subj-count{font-size:10px;color:var(--muted2);}
 
-/* BATCH CARD */
-.bcard{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;cursor:pointer;transition:all .22s;}
-.bcard:hover{border-color:rgba(245,166,35,.4);transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.3);}.bcard:active{transform:scale(.99);}
-.bthumb{width:100%;aspect-ratio:16/9;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
-.bthumb-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:3;display:none;}
-.bthumb-grd{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(245,166,35,.25) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(124,92,191,.2) 0%,transparent 60%);}
-.bthumb-name{position:absolute;font-family:'Bebas Neue',sans-serif;font-size:48px;color:rgba(255,255,255,.08);letter-spacing:3px;z-index:1;}
-.bclass-badge{position:absolute;top:9px;left:9px;padding:3px 9px;border-radius:6px;font-size:10px;font-weight:700;background:var(--accent);color:#000;z-index:4;}
-.bprice-badge{position:absolute;top:9px;right:9px;text-align:right;z-index:4;}
-.bprice-old{font-size:10px;color:var(--muted2);text-decoration:line-through;text-shadow:0 1px 3px rgba(0,0,0,.8);}
-.bprice-new{font-size:19px;font-weight:700;color:var(--accent);font-family:'Space Mono',monospace;text-shadow:0 1px 4px rgba(0,0,0,.9);}
-.bcard-body{padding:14px 16px;}
-.bcard-tag{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.25);border-radius:5px;font-size:9px;font-weight:700;letter-spacing:.7px;color:var(--accent);margin-bottom:9px;}
-.tdot{width:4px;height:4px;background:var(--accent);border-radius:50%;}
-.bcard-title{font-family:'Bebas Neue',sans-serif;font-size:21px;letter-spacing:.4px;margin-bottom:9px;}
-.bcard-meta{display:flex;gap:14px;margin-bottom:12px;}.mitem{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--muted2);}
-.bcard-foot{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid var(--border);}
-.sl{font-size:11px;font-weight:700;letter-spacing:1px;color:var(--accent);}
-.arr-btn{width:34px;height:34px;background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.3);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:15px;transition:all .2s;}
-.bcard:hover .arr-btn{background:var(--accent);color:#000;}
+/* MODAL */
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:1000;align-items:center;justify-content:center;padding:20px;}
+.modal.active{display:flex;}
+.modal-content{background:var(--card);border-radius:16px;max-width:500px;max-height:80vh;overflow-y:auto;border:1px solid var(--border);width:90%;}
+.modal-header{padding:20px 24px;border-bottom:1px solid var(--border);}
+.modal-title{font-size:18px;font-weight:700;margin-bottom:4px;}
+.modal-close{position:absolute;top:20px;right:24px;font-size:24px;color:var(--muted);cursor:pointer;}
+.modal-body{padding:24px;}
+.modal-list{display:flex;flex-direction:column;gap:12px;}
 
-/* CONTENT PAGE */
-.chero{padding:20px 18px;background:var(--bg2);border-bottom:1px solid var(--border);}
-.clabel{font-size:9px;letter-spacing:1.5px;color:var(--purple2);font-weight:600;margin-bottom:7px;display:flex;align-items:center;gap:4px;}.clabel .dot{width:5px;height:5px;background:var(--purple2);border-radius:50%;}
-.ctitle{font-size:19px;font-weight:700;line-height:1.3;margin-bottom:14px;}
-.cthumb{width:100%;border-radius:13px;aspect-ratio:16/9;background:linear-gradient(135deg,#0d0820,#1a0e35,#0a1228);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
-.cthumb-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(100,60,200,.4) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(245,166,35,.2) 0%,transparent 60%);}
-.cthumb-text{position:relative;z-index:2;font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--accent);letter-spacing:2px;text-align:center;}
-.cthumb-sub{font-family:'Bebas Neue',sans-serif;font-size:16px;color:rgba(255,255,255,.45);letter-spacing:4px;display:block;text-align:center;}
-.cclass-badge{position:absolute;top:9px;left:9px;padding:3px 9px;background:var(--accent);color:#000;border-radius:5px;font-size:10px;font-weight:700;}
-.cprice-badge{position:absolute;top:9px;right:9px;text-align:right;}
-
-/* TABS */
-.tabs{display:flex;border-bottom:1px solid var(--border);background:var(--bg2);position:sticky;top:55px;z-index:100;}
-.tab{flex:1;padding:12px;text-align:center;font-size:11px;font-weight:600;letter-spacing:1px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;}
-.tab.active{color:var(--purple2);border-bottom-color:var(--purple2);}
-
-/* OVERVIEW */
-.ov-sec{padding:18px;}
-.tt-wrap{width:100%;border-radius:11px;overflow:hidden;margin-bottom:16px;}
-.tt-head{background:linear-gradient(135deg,#8b0000,#cc2200);padding:10px 14px;text-align:center;}
-.tt-bname{font-family:'Bebas Neue',sans-serif;font-size:19px;color:var(--accent);letter-spacing:2px;}.tt-type{font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.7);}
-.tt-ttl{text-align:center;padding:6px;background:rgba(0,0,0,.3);}.tt-ttl span{font-family:'Bebas Neue',sans-serif;font-size:24px;color:#f0c040;letter-spacing:2px;}
-.tt-tbl{width:100%;border-collapse:collapse;}
-.tt-tbl th{background:rgba(245,166,35,.15);color:var(--accent);padding:6px 4px;font-size:9px;text-align:center;border:1px solid rgba(245,166,35,.2);}
-.tt-tbl td{padding:6px 4px;text-align:center;font-size:9px;border:1px solid var(--border);color:var(--text);}
-.tt-tbl tr:nth-child(even) td{background:rgba(255,255,255,.02);}.tt-hol{color:var(--accent)!important;font-weight:600;}
-.wp-blk{background:var(--card);border:1px solid var(--border);border-radius:11px;overflow:hidden;margin-bottom:14px;}
-.wp-hd{background:linear-gradient(135deg,#1a0a2e,#2a0a10);padding:11px 14px;}
-.wp-cls{font-size:9px;letter-spacing:2px;color:var(--accent);font-weight:700;margin-bottom:2px;}.wp-ttl{font-family:'Bebas Neue',sans-serif;font-size:19px;color:#f0c040;letter-spacing:2px;}
-.wp-tbl{width:100%;border-collapse:collapse;}
-.wp-tbl th{background:rgba(245,166,35,.12);color:var(--accent);padding:6px 4px;font-size:8px;text-align:center;border:1px solid rgba(245,166,35,.15);font-weight:700;}
-.wp-tbl td{padding:5px 3px;text-align:center;font-size:8px;border:1px solid var(--border);color:var(--muted2);}
-.wp-tbl td:first-child{color:var(--text);font-weight:500;font-size:9px;}.wp-hol{color:var(--accent)!important;font-weight:700;}
-.cdesc{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:14px;margin-bottom:14px;}
-.cdesc-ttl{font-size:13px;font-weight:700;line-height:1.5;margin-bottom:9px;}.cdesc-ttl strong{color:var(--accent);}
-.flist{list-style:none;display:flex;flex-direction:column;gap:8px;}
-.fitem{display:flex;gap:9px;font-size:11px;line-height:1.5;color:var(--muted2);}
-.fnum{width:17px;height:17px;background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.3);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--accent);font-weight:700;flex-shrink:0;margin-top:1px;}
-.fitem strong{color:var(--text);}
-.det-blk{background:var(--card);border:1px solid var(--border);border-radius:11px;overflow:hidden;margin-bottom:14px;}
-.det-hd{padding:8px 14px;font-size:9px;letter-spacing:1.5px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border);}
-.det-row{display:flex;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--border);font-size:12px;}.det-row:last-child{border-bottom:none;}
-.det-row .lbl{color:var(--muted2);}.det-row .val{font-weight:600;font-family:'Space Mono',monospace;font-size:11px;}
-.vc-btn{display:flex;align-items:center;justify-content:center;gap:7px;width:calc(100% - 36px);margin:0 18px 28px;padding:14px;background:var(--purple);border-radius:11px;font-weight:700;font-size:13px;letter-spacing:1px;cursor:pointer;border:none;color:var(--text);font-family:'DM Sans',sans-serif;transition:all .22s;}
-.vc-btn:hover{background:var(--purple2);transform:translateY(-1px);}
-
-/* CONTENT TAB */
-.ch-sec{padding:18px 18px 10px;}.slabel{font-size:9px;letter-spacing:1.5px;color:var(--muted);font-weight:600;margin-bottom:11px;}
-.ch-list{display:flex;flex-direction:column;gap:8px;}
-.ch-item{display:flex;align-items:center;justify-content:space-between;padding:13px 14px;background:var(--card);border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:all .2s;}
-.ch-item:hover{border-color:rgba(245,166,35,.4);}.ch-item:active{transform:scale(.98);}
-.ch-l{display:flex;align-items:center;gap:11px;}
-.ch-icon{width:36px;height:36px;background:rgba(245,166,35,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;}
-.ch-name{font-size:14px;font-weight:500;}.ch-arr{color:var(--muted);font-size:13px;transition:color .2s;}.ch-item:hover .ch-arr{color:var(--accent);}
-
-/* SUBCHAPTER */
-.sub-hd{padding:18px;background:var(--bg2);border-bottom:1px solid var(--border);}
-.sub-subject{font-size:9px;letter-spacing:1.5px;color:var(--purple2);font-weight:600;margin-bottom:5px;}.sub-title{font-size:21px;font-weight:700;}
-.sfl-list{padding:18px;display:flex;flex-direction:column;gap:11px;}
-.sfl-card{display:flex;align-items:center;gap:13px;padding:15px 16px;background:var(--card);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:all .2s;}
-.sfl-card:hover{border-color:rgba(245,166,35,.4);transform:translateX(3px);}.sfl-card:active{transform:scale(.98);}
-.sfl-icon{width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
-.sfl-info{flex:1;}.sfl-name{font-size:15px;font-weight:600;margin-bottom:3px;}.sfl-meta{font-size:11px;color:var(--muted2);}
-.sfl-arr{color:var(--muted);font-size:15px;transition:color .2s;}.sfl-card:hover .sfl-arr{color:var(--accent);}
-
-/* LECTURE LIST */
-.lec-hd{padding:18px;background:var(--bg2);border-bottom:1px solid var(--border);}
-.lec-subject{font-size:9px;letter-spacing:1.5px;color:var(--purple2);font-weight:600;margin-bottom:3px;}
-.lec-ttl{font-size:19px;font-weight:700;}.lec-cnt{font-size:11px;color:var(--muted2);margin-top:3px;font-family:'Space Mono',monospace;}
-.lec-list{padding:14px;display:flex;flex-direction:column;gap:9px;}
-.lec-item{display:flex;align-items:center;gap:11px;padding:13px;background:var(--card);border:1px solid var(--border);border-radius:11px;cursor:pointer;transition:all .2s;}
-.lec-item:hover{border-color:rgba(124,92,191,.5);}.lec-item:active{transform:scale(.98);}
-.lec-thumb{width:68px;height:44px;border-radius:7px;position:relative;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
-.lec-thumb-bg{position:absolute;inset:0;}
-.lec-play{position:absolute;width:24px;height:24px;background:rgba(124,92,191,.92);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;padding-left:2px;}
-.lec-info{flex:1;min-width:0;}
-.lec-name{font-size:12px;font-weight:500;margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.lec-badge{display:inline-block;padding:2px 7px;background:rgba(124,92,191,.15);border:1px solid rgba(124,92,191,.3);border-radius:4px;font-size:8px;font-weight:700;letter-spacing:.7px;color:var(--purple2);}
-.lec-dur{font-size:10px;color:var(--muted);font-family:'Space Mono',monospace;flex-shrink:0;}
-
-/* PDF LIST */
-.pdf-list{padding:14px;display:flex;flex-direction:column;gap:9px;}
-.pdf-item{display:flex;align-items:center;gap:11px;padding:13px;background:var(--card);border:1px solid var(--border);border-radius:11px;cursor:pointer;transition:all .2s;}
-.pdf-item:hover{border-color:rgba(245,70,70,.4);}.pdf-item:active{transform:scale(.98);}
-.pdf-icon{width:42px;height:42px;background:rgba(245,70,70,.1);border:1px solid rgba(245,70,70,.25);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;}
-.pdf-info{flex:1;min-width:0;}
-.pdf-name{font-size:12px;font-weight:500;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-.pdf-meta{font-size:10px;color:var(--muted2);}
-.pdf-badge{display:inline-block;padding:2px 7px;background:rgba(245,70,70,.12);border:1px solid rgba(245,70,70,.3);border-radius:4px;font-size:8px;font-weight:700;letter-spacing:.7px;color:#f55;}
-
-/* PLAYER */
-.player-top{display:flex;align-items:center;gap:9px;padding:11px 16px;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0;}
-.v-yt-wrap{width:100%;aspect-ratio:16/9;background:#000;flex-shrink:0;display:none;}
-.v-yt-wrap.active{display:block;}
-.v-yt-wrap iframe{width:100%;height:100%;border:none;display:block;}
-.vwrap{width:100%;aspect-ratio:16/9;background:#000;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.vbg{position:absolute;inset:0;background:linear-gradient(135deg,#0a0520 0%,#1a0f35 40%,#0e1a25 70%,#0a1a0e 100%);}
-.vglow{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(245,166,35,.18) 0%,transparent 55%),radial-gradient(ellipse at 70% 30%,rgba(124,92,191,.14) 0%,transparent 50%);}
-.vcenter{position:relative;z-index:2;background:rgba(0,0,0,.58);border:1px solid rgba(245,166,35,.25);border-radius:13px;padding:16px 22px;text-align:center;max-width:260px;backdrop-filter:blur(4px);}
-.vs-tag{font-size:8px;letter-spacing:2px;color:var(--accent);font-weight:700;margin-bottom:5px;}
-.vbatch{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--accent);letter-spacing:2px;margin-bottom:2px;}
-.vlname{font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;}
-.vlnum{font-size:10px;color:var(--muted2);font-family:'Space Mono',monospace;}
-.vplay-ov{position:absolute;z-index:3;width:60px;height:60px;background:rgba(124,92,191,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;color:var(--text);right:20px;bottom:20px;}
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:8px;padding:12px 24px;background:var(--purple);color:var(--text);border:none;border-radius:12px;font-weight:600;font-size:14px;cursor:pointer;transition:all .2s;text-decoration:none;}
+.btn:hover{background:var(--purple2);transform:translateY(-1px);}
+.btn.secondary{background:var(--accent);color:#000;}
+.btn.secondary:hover{background:#ffbf3f;}
 </style>
 </head>
 <body>
 <!-- TOPBAR -->
 <div class="topbar">
+  <a href="#" class="back-btn" onclick="history.back()">
+    <i class="fas fa-arrow-left"></i> Back
+  </a>
   <div class="tl">
     <div class="ac-icon">RC</div>
     <div class="logo">Rolex<span>CoderZ</span></div>
   </div>
-  <div class="back-btn">← Back</div>
 </div>
 
 <!-- BATCH DASHBOARD -->
@@ -221,23 +108,23 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
 
   <!-- TABS -->
   <div class="tabs">
-    <div class="tab active">
-      <span>📝</span>Overview
+    <div class="tab active" data-tab="overview">
+      <span class="tab-icon">📝</span>Overview
     </div>
-    <div class="tab">
-      <span>📺</span>Live Today
+    <div class="tab" data-tab="live">
+      <span class="tab-icon">📺</span>Live Today
     </div>
-    <div class="tab">
-      <span>🎓</span>Subjects <span class="tab-count">14</span>
+    <div class="tab" data-tab="subjects">
+      <span class="tab-icon">🎓</span>Subjects <span class="tab-count">14</span>
     </div>
-    <div class="tab">
-      <span>📢</span>Updates <span class="tab-count">20</span>
+    <div class="tab" data-tab="updates">
+      <span class="tab-icon">📢</span>Updates <span class="tab-count">20</span>
     </div>
   </div>
 
   <!-- OVERVIEW SECTION -->
-  <div class="ov-sec">
-    <!-- COURSE INFO CARDS -->
+  <div id="overview" class="ov-sec active">
+    <!-- COURSE INFO -->
     <div class="desc-card">
       <div class="desc-row">
         <div class="desc-icon">📅</div>
@@ -255,104 +142,191 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
       </div>
     </div>
 
-    <!-- SUBJECTS -->
+    <!-- SUBJECTS PREVIEW -->
     <div class="desc-card">
-      <div class="desc-row" style="align-items:center;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
         <div class="desc-icon">📖</div>
         <div style="flex:1;">
-          <div class="desc-label" style="font-weight:700;">Subjects:</div>
-          <div class="desc-value" style="font-size:10px;line-height:1.4;">
-            Accountancy, Micro Economics, Indian Economic Development, Statistics, Entrepreneurship, Business Studies, Hindi, Core Maths, Applied Maths, English, Computer Science, IP & Physical Education.
-          </div>
+          <div class="desc-label" style="font-weight:700;">Core Subjects (14 Total)</div>
         </div>
       </div>
+      <div class="subjects-list">
+        <div class="subj-card">
+          <div class="subj-name">Accountancy</div>
+          <div class="subj-count">Live Classes</div>
+        </div>
+        <div class="subj-card">
+          <div class="subj-name">Business Studies</div>
+          <div class="subj-count">DPP Sheets</div>
+        </div>
+        <div class="subj-card">
+          <div class="subj-name">Economics</div>
+          <div class="subj-count">E-books</div>
+        </div>
+        <div class="subj-card">
+          <div class="subj-name">Statistics</div>
+          <div class="subj-count">Tests</div>
+        </div>
+      </div>
+      <a href="#" class="btn" style="display:block;text-align:center;margin-top:16px;">View All Subjects</a>
     </div>
 
     <!-- BATCH DETAILS -->
-    <h2 class="sec-headh2">Batch Details</h2>
-    <div class="batch-details">
+    <h2 class="sec-headh2" onclick="toggleDetails()">Batch Details <i class="fas fa-chevron-down" style="font-size:12px;"></i></h2>
+    <div id="batch-details" class="batch-details">
       <div class="batch-item">
         <div class="batch-num">01.</div>
         <div class="batch-text">Start Date - 13 April 2026. End Date - 30 Nov 2026.</div>
       </div>
       <div class="batch-item">
         <div class="batch-num">02.</div>
-        <div class="batch-text">This batch is designed for students preparing for the 11th Commerce Exams 2027.</div>
+        <div class="batch-text">Designed for <strong>11th Commerce Exams 2027</strong>.</div>
       </div>
       <div class="batch-item">
         <div class="batch-num">03.</div>
-        <div class="batch-text">Classes of <strong>Accountancy, Micro Economics, Indian Economic Development, Statistics, Entrepreneurship, Business Studies, Hindi, Core Maths, Applied Maths, English, Computer Science, IP & Physical Education</strong> will be provided.</div>
+        <div class="batch-text">All 14 subjects with <strong>Live + Recorded classes</strong>.</div>
       </div>
       <div class="batch-item">
         <div class="batch-num">04.</div>
-        <div class="batch-text">All classes will be conducted Live and recordings will be available.</div>
+        <div class="batch-text">Daily Practice Problems (DPP) + PDF Notes.</div>
       </div>
       <div class="batch-item">
         <div class="batch-num">05.</div>
-        <div class="batch-text">Dedicated doubt-solving platforms will be provided.</div>
+        <div class="batch-text"><strong>Weekly tests, unit tests, half-yearly & final tests</strong>.</div>
       </div>
       <div class="batch-item">
         <div class="batch-num">06.</div>
-        <div class="batch-text">Each lecture will include Daily Practice Problem (DPP) sheets with solutions.</div>
+        <div class="batch-text">Doubt solving + Mentorship + Career guidance.</div>
       </div>
-      <div class="batch-item">
-        <div class="batch-num">07.</div>
-        <div class="batch-text">Class notes and practice sheets will be provided in PDF Format.</div>
+    </div>
+
+    <a href="#" class="btn secondary" style="display:block;margin:32px auto 0;width:220px;">Join Now</a>
+  </div>
+
+  <!-- LIVE TODAY -->
+  <div id="live" class="ov-sec">
+    <h2 style="text-align:center;font-family:'Bebas Neue',sans-serif;font-size:28px;margin-bottom:24px;">Live Classes Today</h2>
+    <p style="text-align:center;color:var(--muted2);font-size:14px;">No live classes scheduled for today</p>
+  </div>
+
+  <!-- SUBJECTS -->
+  <div id="subjects" class="ov-sec">
+    <h2 style="text-align:center;font-family:'Bebas Neue',sans-serif;font-size:28px;margin-bottom:24px;">All Subjects</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;">
+      <div class="desc-card">
+        <div class="desc-value" style="font-size:16px;font-weight:700;margin-bottom:12px;">Core Subjects</div>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;">
+          <div>📊 Accountancy</div>
+          <div>📈 Business Studies</div>
+          <div>💰 Micro Economics</div>
+          <div>📊 Statistics</div>
+        </div>
       </div>
-      <div class="batch-item">
-        <div class="batch-num">08.</div>
-        <div class="batch-text">Weekly tests, unit tests, half yearly tests & final tests will be conducted for progress tracking.</div>
+      <div class="desc-card">
+        <div class="desc-value" style="font-size:16px;font-weight:700;margin-bottom:12px;">Electives</div>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;">
+          <div>🇮🇳 Indian Economic Development</div>
+          <div>🚀 Entrepreneurship</div>
+          <div>📐 Core Maths</div>
+          <div>🧮 Applied Maths</div>
+        </div>
       </div>
-      <div class="batch-item">
-        <div class="batch-num">09.</div>
-        <div class="batch-text">Sample Papers with Solutions will be provided.</div>
+      <div class="desc-card">
+        <div class="desc-value" style="font-size:16px;font-weight:700;margin-bottom:12px;">Languages</div>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;">
+          <div>📖 English</div>
+          <div>हिंदी Hindi</div>
+        </div>
       </div>
-      <div class="batch-item">
-        <div class="batch-num">10.</div>
-        <div class="batch-text">E-books will be provided for all subjects except Core Maths, Hindi, IP, Physical Education, Computer Science & English.</div>
+      <div class="desc-card">
+        <div class="desc-value" style="font-size:16px;font-weight:700;margin-bottom:12px;">Others</div>
+        <div style="display:flex;flex-direction:column;gap:8px;font-size:13px;">
+          <div>💻 Computer Science</div>
+          <div>🌐 IP</div>
+          <div>🏃 Physical Education</div>
+        </div>
       </div>
-      <div class="batch-item">
-        <div class="batch-num">11.</div>
-        <div class="batch-text">Doubt classes and revision classes will be provided.</div>
-      </div>
-      <div class="batch-item">
-        <div class="batch-num">12.</div>
-        <div class="batch-text">The syllabus will be completed by Nov 2026.</div>
-      </div>
-      <div class="batch-item">
-        <div class="batch-num">13.</div>
-        <div class="batch-text">The syllabus will be covered as per the respective board guidelines.</div>
-      </div>
-      <div class="batch-item">
-        <div class="batch-num">14.</div>
-        <div class="batch-text">Recorded class of CS, IP and PE will be provided in recorded Format and Recordings will be available from Nov 2026.</div>
-      </div>
-      <div class="batch-item">
-        <div class="batch-num">15.</div>
-        <div class="batch-text">Mentorship support (Toppers Session) will be available throughout the course.</div>
-      </div>
-      <div class="batch-item">
-        <div class="batch-num">16.</div>
-        <div class="batch-text">Free career guidance sessions will be provided.</div>
-      </div>
-      <div class="batch-item">
-        <div class="batch-num">17.</div>
-        <div class="batch-text">For App/Web Navigation the latest Feature Updates & Student Support please subscribe to our Support YouTube channel.</div>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="modal-title">Batch Features</div>
+      <span class="modal-close" onclick="closeModal()">&times;</span>
+    </div>
+    <div class="modal-body">
+      <div class="modal-list">
+        <div>✅ Live + Recorded Classes</div>
+        <div>✅ DPP Sheets + PDF Notes</div>
+        <div>✅ Weekly/Unit/Final Tests</div>
+        <div>✅ Doubt Solving Platform</div>
+        <div>✅ E-books (Most Subjects)</div>
+        <div>✅ Mentorship Sessions</div>
       </div>
     </div>
   </div>
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-  // Tab switching
-  const tabs = document.querySelectorAll('.tab');
-  tabs.forEach(tab => {
-    tab.addEventListener('click', function() {
-      // Remove active from all tabs
-      tabs.forEach(t => t.classList.remove('active'));
-      // Add active to clicked tab
-      this.classList.add('active');
+let currentTab = 'overview';
+
+// Tab switching
+document.querySelectorAll('.tab').forEach(tab => {
+  tab.addEventListener('click', function() {
+    const targetTab = this.dataset.tab;
+    
+    // Update tabs
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    this.classList.add('active');
+    
+    // Update content
+    document.querySelectorAll('.ov-sec').forEach(sec => sec.classList.remove('active'));
+    document.getElementById(targetTab).classList.add('active');
+    
+    currentTab = targetTab;
+  });
+});
+
+// Toggle batch details
+function toggleDetails() {
+  const details = document.getElementById('batch-details');
+  details.style.display = details.style.display === 'none' ? 'block' : 'none';
+}
+
+// Modal
+function openModal() {
+  document.getElementById('modal').classList.add('active');
+}
+function closeModal() {
+  document.getElementById('modal').classList.remove('active');
+}
+
+// Close modal on outside click
+document.getElementById('modal').addEventListener('click', function(e) {
+  if(e.target === this) closeModal();
+});
+
+// All buttons working
+document.querySelectorAll('.batch-item, .subj-card, .btn, .back-btn').forEach(el => {
+  el.style.cursor = 'pointer';
+  el.addEventListener('click', function(e) {
+    e.preventDefault();
+    console.log('Button clicked:', this.textContent);
+    // Add ripple effect
+    this.style.transform = 'scale(0.98)';
+    setTimeout(() => this.style.transform = '', 150);
+  });
+});
+
+// Smooth scroll
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    document.querySelector(this.getAttribute('href')).scrollIntoView({
+      behavior: 'smooth'
     });
   });
 });
