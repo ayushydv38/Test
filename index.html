@@ -586,11 +586,17 @@ html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-seri
 */
 
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-//  📹 LECTURES DATA — apna data yahan bharo
+//  🏫 INSTITUTE-WISE LECTURES & PDFS
+//  ✅ NEXT TOPPERS - Class 11 Commerce
+//  ✅ PHYSICS WALLAH - Science Classes
 // ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-const LECTURES = {
+
+// ╔════════════════════════════════════════════════════════╗
+// ║  NEXT TOPPERS — Class 11 Commerce Lectures             ║
+// ╚════════════════════════════════════════════════════════╝
+const LECTURES_NEXT_TOPPERS = {
   'Economics': [
-    { name:'Introduction to Economics - L1',   dur:'58:40',   url:'' },
+    { name:'Introduction to Economics - L1',   dur:'58:40',   url:'https://youtube.com/shorts/Tlo0ef4-mDI?si=jPrLut4K3myjSjNH' },
     { name:'Consumer Equilibrium - L1',         dur:'1:02:15', url:'' },
     { name:'Consumer Equilibrium - L2',         dur:'55:30',   url:'' },
     { name:'Production & Costs - L1',           dur:'1:05:10', url:'' },
@@ -629,10 +635,10 @@ const LECTURES = {
   ],
 };
 
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-//  📄 PDF DATA — apna data yahan bharo
-// ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-const PDFS = {
+// ╔════════════════════════════════════════════════════════╗
+// ║  NEXT TOPPERS — Class 11 Commerce PDFs                ║
+// ╚════════════════════════════════════════════════════════╝
+const PDFS_NEXT_TOPPERS = {
   'Economics': [
     { name:'Introduction to Economics Notes',  pages:'12 pages', url:'' },
     { name:'Consumer Equilibrium Notes',        pages:'18 pages', url:'' },
@@ -667,12 +673,79 @@ const PDFS = {
   ],
 };
 
+// ╔════════════════════════════════════════════════════════╗
+// ║  PHYSICS WALLAH — Science Classes Lectures             ║
+// ╚════════════════════════════════════════════════════════╝
+const LECTURES_PHYSICS_WALLAH = {
+  'Physics': [
+    { name:'Motion & Kinematics - L1',          dur:'1:15:30',  url:'https://youtube.com/shorts/XRIMsFoBBLI?si=UkaDLXGpPuN5fOje' },
+    { name:'Motion & Kinematics - L2',          dur:'1:20:45',  url:'' },
+    { name:'Forces & Newton Laws - L1',         dur:'1:10:00',  url:'' },
+    { name:'Forces & Newton Laws - L2',         dur:'1:18:20',  url:'' },
+    { name:'Energy & Work - L1',                dur:'1:05:15',  url:'' },
+  ],
+  'Chemistry': [
+    { name:'Atomic Structure - L1',             dur:'1:12:30',  url:'' },
+    { name:'Atomic Structure - L2',             dur:'1:15:00',  url:'' },
+    { name:'Periodic Table - L1',               dur:'1:08:45',  url:'' },
+    { name:'Chemical Bonding - L1',             dur:'1:20:00',  url:'' },
+  ],
+  'Biology': [
+    { name:'Cell Structure & Function - L1',    dur:'1:10:20',  url:'' },
+    { name:'Cell Division - L1',                dur:'1:18:30',  url:'' },
+    { name:'Genetics Basics - L1',              dur:'1:15:45',  url:'' },
+  ],
+  'Mathematics': [
+    { name:'Complex Numbers - L1',              dur:'1:22:15',  url:'' },
+    { name:'Calculus Basics - L1',              dur:'1:25:30',  url:'' },
+    { name:'Vectors - L1',                      dur:'1:18:00',  url:'' },
+  ],
+};
+
+// ╔════════════════════════════════════════════════════════╗
+// ║  PHYSICS WALLAH — Science Classes PDFs                 ║
+// ╚════════════════════════════════════════════════════════╝
+const PDFS_PHYSICS_WALLAH = {
+  'Physics': [
+    { name:'Motion & Kinematics Notes',         pages:'24 pages', url:'' },
+    { name:'Forces & Newton Laws Notes',        pages:'28 pages', url:'' },
+    { name:'Energy & Work Formula Sheet',       pages:'8 pages',  url:'' },
+  ],
+  'Chemistry': [
+    { name:'Atomic Structure Full Notes',       pages:'32 pages', url:'' },
+    { name:'Periodic Table Reference',          pages:'12 pages', url:'' },
+    { name:'Chemical Bonding Notes',            pages:'26 pages', url:'' },
+  ],
+  'Biology': [
+    { name:'Cell Structure Notes',              pages:'28 pages', url:'' },
+    { name:'Cell Division Diagrams',            pages:'16 pages', url:'' },
+    { name:'Genetics Workbook',                 pages:'20 pages', url:'' },
+  ],
+  'Mathematics': [
+    { name:'Complex Numbers Guide',             pages:'22 pages', url:'' },
+    { name:'Calculus Formula Sheet',            pages:'10 pages', url:'' },
+    { name:'Vectors Complete Notes',            pages:'24 pages', url:'' },
+  ],
+};
+
+// ╔════════════════════════════════════════════════════════╗
+// ║  BACKWARD COMPATIBILITY - Alias ke taur par            ║
+// ║  Purana code jo LECTURES/PDFS use karta hai            ║
+// ╚════════════════════════════════════════════════════════╝
+let LECTURES = LECTURES_NEXT_TOPPERS;
+let PDFS = PDFS_NEXT_TOPPERS;
+let CURRENT_INSTITUTE = 'NEXT_TOPPERS'; // Track current institute
+
 const THUMB_GRADS = {
   'Economics':'linear-gradient(135deg,#200a28,#280a0a)',
   'Accounts':'linear-gradient(135deg,#281a0a,#0a1528)',
   'Business Studies':'linear-gradient(135deg,#0a2010,#201a0a)',
   'Maths':'linear-gradient(135deg,#0a1228,#1a350e)',
+  'Mathematics':'linear-gradient(135deg,#0a1228,#1a350e)',
   'English':'linear-gradient(135deg,#0d0820,#1a0e35)',
+  'Physics':'linear-gradient(135deg,#1a0a28,#2a0a1e)',
+  'Chemistry':'linear-gradient(135deg,#0a1a2e,#1a2a0e)',
+  'Biology':'linear-gradient(135deg,#1a0a2e,#0a2a1a)',
   'Hindi Core':'linear-gradient(135deg,#1a0a0a,#0a1a28)',
   'Hindi Elective':'linear-gradient(135deg,#0a0a1a,#1a0a1a)',
 };
@@ -688,6 +761,20 @@ function goComingSoon(n,i){document.getElementById('cs-icon').textContent=i;docu
 
 function openBatch(id,cls,name,price,oldPrice,thumb,sub){
   curBtag='#'+id;
+  
+  // ✅ Institute-wise LECTURES aur PDFS select kar do
+  if(id===110 || id===120 || id===100 || id===90){
+    // NEXT TOPPERS ke batches
+    LECTURES = LECTURES_NEXT_TOPPERS;
+    PDFS = PDFS_NEXT_TOPPERS;
+    CURRENT_INSTITUTE = 'NEXT_TOPPERS';
+  } else if(id===200 || id===210){
+    // PHYSICS WALLAH ke batches (jab isko add karo)
+    LECTURES = LECTURES_PHYSICS_WALLAH;
+    PDFS = PDFS_PHYSICS_WALLAH;
+    CURRENT_INSTITUTE = 'PHYSICS_WALLAH';
+  }
+  
   document.getElementById('c-btag').textContent=curBtag;
   document.getElementById('c-title').textContent=name;
   document.getElementById('c-thumb-text').textContent=thumb;
