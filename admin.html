@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>AyushCoderZ</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0f;--bg2:#111118;--bg3:#1a1a24;--card:#13131c;--card2:#1c1c28;--accent:#f5a623;--purple:#7c5cbf;--purple2:#9b7de8;--text:#f0f0f5;--muted:#6b6b85;--muted2:#8888a8;--border:#2a2a3a;}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;min-height:100vh;overflow-x:hidden;}
+::-webkit-scrollbar{width:3px;}::-webkit-scrollbar-track{background:var(--bg);}::-webkit-scrollbar-thumb{background:var(--border);border-radius:2px;}
+.page{display:none;min-height:100vh;}.page.active{display:block;}
+#pg-player{display:none;min-height:100vh;flex-direction:column;}#pg-player.active{display:flex;}
+
+/* TOPBAR */
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:11px 16px;background:var(--bg2);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:200;}
+.tl{display:flex;align-items:center;gap:6px;}
+.logo{font-family:'Space Mono',monospace;font-size:14px;font-weight:700;}.logo span{color:var(--accent);}
+.ac-icon{width:33px;height:33px;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'Space Mono',monospace;font-size:11px;font-weight:700;color:#000;flex-shrink:0;cursor:pointer;transition:all .2s;}
+.ac-icon:hover{transform:scale(1.05);}
+.ac-icon.purple{background:var(--purple);}
+.back-btn{display:flex;align-items:center;gap:4px;padding:6px 11px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-size:12px;cursor:pointer;font-family:'DM Sans',sans-serif;transition:background .2s;white-space:nowrap;}
+.back-btn:hover{background:var(--card2);}
+
+/* HOME */
+#pg-home{background:linear-gradient(135deg,rgba(124,92,191,.04) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(245,166,35,.06) 0%,transparent 50%),var(--bg);}
+.home-hero{padding:36px 22px 20px;}
+.home-bc{font-family:'Space Mono',monospace;font-size:10px;color:var(--muted);margin-bottom:5px;}.home-bc .dol{color:var(--accent);margin-right:5px;}
+.home-cmd{font-family:'Space Mono',monospace;font-size:11px;color:var(--muted2);margin-bottom:24px;}
+.home-h{font-size:30px;font-weight:700;line-height:1.15;margin-bottom:9px;}.home-h .hl{color:var(--accent);}
+.home-sub{font-size:13px;color:var(--muted2);line-height:1.6;margin-bottom:28px;}
+.divider{height:1px;background:var(--border);margin:0 22px 24px;}
+.plist{padding:0 14px 36px;display:flex;flex-direction:column;gap:11px;}
+.pcard{display:flex;align-items:center;gap:14px;padding:17px 18px;background:var(--card);border:1px solid var(--border);border-radius:14px;cursor:pointer;transition:all .22s;position:relative;overflow:hidden;}
+.pcard::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(245,166,35,.05),transparent);opacity:0;transition:opacity .22s;}
+.pcard:hover{border-color:rgba(245,166,35,.4);transform:translateY(-1px);}.pcard:hover::before{opacity:1;}.pcard:active{transform:scale(.98);}
+.picon{width:50px;height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.pinfo{flex:1;}.pname{font-size:15px;font-weight:600;font-family:'Space Mono',monospace;}.pmeta{font-size:11px;color:var(--muted2);margin-top:2px;}
+.parr{color:var(--muted);font-size:17px;transition:transform .2s;}.pcard:hover .parr{transform:translateX(3px);color:var(--accent);}
+
+/* COMING SOON */
+#pg-coming{background:radial-gradient(ellipse at 50% 30%,rgba(245,166,35,.07) 0%,transparent 60%),var(--bg);}
+.cs-body{min-height:calc(100vh - 57px);display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 28px;text-align:center;}
+.cs-icon{font-size:62px;margin-bottom:20px;animation:float 3s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.cs-pname{font-family:'Space Mono',monospace;font-size:17px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.cs-title{font-family:'Bebas Neue',sans-serif;font-size:54px;color:var(--accent);letter-spacing:2px;line-height:1;margin-bottom:10px;}
+.cs-sub{font-size:14px;color:var(--muted2);line-height:1.6;max-width:250px;}
+.cs-badge{margin-top:26px;padding:7px 20px;background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.3);border-radius:20px;font-size:11px;color:var(--accent);font-weight:600;letter-spacing:1px;font-family:'Space Mono',monospace;}
+
+/* BATCHES */
+#pg-batches{background:radial-gradient(ellipse at 50% 0%,rgba(245,166,35,.08) 0%,transparent 60%),var(--bg);}
+.bhero{padding:28px 22px 20px;text-align:center;}
+.lbadge{display:inline-flex;align-items:center;gap:6px;padding:5px 15px;background:rgba(245,166,35,.12);border:1px solid rgba(245,166,35,.3);border-radius:20px;font-size:10px;font-weight:600;letter-spacing:1px;color:var(--accent);margin-bottom:16px;}
+.ldot{width:6px;height:6px;background:var(--accent);border-radius:50%;animation:pulse 1.5s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.8)}}
+.btitle{font-family:'Bebas Neue',sans-serif;font-size:44px;line-height:1;letter-spacing:1px;margin-bottom:5px;}.btitle .ac{color:var(--accent);}
+.btagline{font-size:12px;color:var(--muted2);letter-spacing:.4px;margin-bottom:16px;}.btagline .or{color:var(--accent);font-weight:600;}
+.srow{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;}
+.sitem{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:600;letter-spacing:.4px;}
+.ddiv{display:flex;align-items:center;justify-content:center;gap:8px;padding:12px 0;}
+.dd{width:7px;height:7px;background:var(--accent);transform:rotate(45deg);}.dl{flex:1;max-width:110px;height:1px;background:var(--border);}
+.blist{padding:0 14px 36px;display:flex;flex-direction:column;gap:14px;}
+
+/* BATCH CARD */
+.bcard{background:var(--card);border:1px solid var(--border);border-radius:16px;overflow:hidden;cursor:pointer;transition:all .22s;}
+.bcard:hover{border-color:rgba(245,166,35,.4);transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.3);}.bcard:active{transform:scale(.99);}
+.bthumb{width:100%;aspect-ratio:16/9;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.bthumb-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:3;display:none;}
+.bthumb-grd{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(245,166,35,.25) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(124,92,191,.2) 0%,transparent 60%);}
+.bthumb-name{position:absolute;font-family:'Bebas Neue',sans-serif;font-size:48px;color:rgba(255,255,255,.08);letter-spacing:3px;z-index:1;}
+.bclass-badge{position:absolute;top:9px;left:9px;padding:3px 9px;border-radius:6px;font-size:10px;font-weight:700;background:var(--accent);color:#000;z-index:4;}
+.bprice-badge{position:absolute;top:9px;right:9px;text-align:right;z-index:4;}
+.bprice-old{font-size:10px;color:var(--muted2);text-decoration:line-through;text-shadow:0 1px 3px rgba(0,0,0,.8);}
+.bprice-new{font-size:19px;font-weight:700;color:var(--accent);font-family:'Space Mono',monospace;text-shadow:0 1px 4px rgba(0,0,0,.9);}
+.bcard-body{padding:14px 16px;}
+.bcard-tag{display:inline-flex;align-items:center;gap:5px;padding:3px 9px;background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.25);border-radius:5px;font-size:9px;font-weight:700;letter-spacing:.7px;color:var(--accent);margin-bottom:9px;}
+.tdot{width:4px;height:4px;background:var(--accent);border-radius:50%;}
+.bcard-title{font-family:'Bebas Neue',sans-serif;font-size:21px;letter-spacing:.4px;margin-bottom:9px;}
+.bcard-meta{display:flex;gap:14px;margin-bottom:12px;}.mitem{display:flex;align-items:center;gap:4px;font-size:10px;color:var(--muted2);}
+.bcard-foot{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid var(--border);}
+.sl{font-size:11px;font-weight:700;letter-spacing:1px;color:var(--accent);}
+.arr-btn{width:34px;height:34px;background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.3);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--accent);font-size:15px;transition:all .2s;}
+.bcard:hover .arr-btn{background:var(--accent);color:#000;}
+
+/* CONTENT PAGE */
+.chero{padding:20px 18px;background:var(--bg2);border-bottom:1px solid var(--border);}
+.clabel{font-size:9px;letter-spacing:1.5px;color:var(--purple2);font-weight:600;margin-bottom:7px;display:flex;align-items:center;gap:4px;}.clabel .dot{width:5px;height:5px;background:var(--purple2);border-radius:50%;}
+.ctitle{font-size:19px;font-weight:700;line-height:1.3;margin-bottom:14px;}
+.cthumb{width:100%;border-radius:13px;aspect-ratio:16/9;background:linear-gradient(135deg,#0d0820,#1a0e35,#0a1228);position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.cthumb-bg{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(100,60,200,.4) 0%,transparent 60%),radial-gradient(ellipse at 70% 50%,rgba(245,166,35,.2) 0%,transparent 60%);}
+.cthumb-text{position:relative;z-index:2;font-family:'Bebas Neue',sans-serif;font-size:40px;color:var(--accent);letter-spacing:2px;text-align:center;}
+.cthumb-sub{font-family:'Bebas Neue',sans-serif;font-size:16px;color:rgba(255,255,255,.45);letter-spacing:4px;display:block;text-align:center;}
+.cclass-badge{position:absolute;top:9px;left:9px;padding:3px 9px;background:var(--accent);color:#000;border-radius:5px;font-size:10px;font-weight:700;}
+.cprice-badge{position:absolute;top:9px;right:9px;text-align:right;}
+
+/* TABS */
+.tabs{display:flex;border-bottom:1px solid var(--border);background:var(--bg2);position:sticky;top:55px;z-index:100;}
+.tab{flex:1;padding:12px;text-align:center;font-size:11px;font-weight:600;letter-spacing:1px;color:var(--muted);cursor:pointer;border-bottom:2px solid transparent;transition:all .2s;}
+.tab.active{color:var(--purple2);border-bottom-color:var(--purple2);}
+
+/* OVERVIEW */
+.ov-sec{padding:18px;}
+.tt-wrap{width:100%;border-radius:11px;overflow:hidden;margin-bottom:16px;}
+.tt-head{background:linear-gradient(135deg,#8b0000,#cc2200);padding:10px 14px;text-align:center;}
+.tt-bname{font-family:'Bebas Neue',sans-serif;font-size:19px;color:var(--accent);letter-spacing:2px;}.tt-type{font-size:9px;letter-spacing:2px;color:rgba(255,255,255,.7);}
+.tt-ttl{text-align:center;padding:6px;background:rgba(0,0,0,.3);}.tt-ttl span{font-family:'Bebas Neue',sans-serif;font-size:24px;color:#f0c040;letter-spacing:2px;}
+.tt-tbl{width:100%;border-collapse:collapse;}
+.tt-tbl th{background:rgba(245,166,35,.15);color:var(--accent);padding:6px 4px;font-size:9px;text-align:center;border:1px solid rgba(245,166,35,.2);}
+.tt-tbl td{padding:6px 4px;text-align:center;font-size:9px;border:1px solid var(--border);color:var(--text);}
+.tt-tbl tr:nth-child(even) td{background:rgba(255,255,255,.02);}.tt-hol{color:var(--accent)!important;font-weight:600;}
+.wp-blk{background:var(--card);border:1px solid var(--border);border-radius:11px;overflow:hidden;margin-bottom:14px;}
+.wp-hd{background:linear-gradient(135deg,#1a0a2e,#2a0a10);padding:11px 14px;}
+.wp-cls{font-size:9px;letter-spacing:2px;color:var(--accent);font-weight:700;margin-bottom:2px;}.wp-ttl{font-family:'Bebas Neue',sans-serif;font-size:19px;color:#f0c040;letter-spacing:2px;}
+.wp-tbl{width:100%;border-collapse:collapse;}
+.wp-tbl th{background:rgba(245,166,35,.12);color:var(--accent);padding:6px 4px;font-size:8px;text-align:center;border:1px solid rgba(245,166,35,.15);font-weight:700;}
+.wp-tbl td{padding:5px 3px;text-align:center;font-size:8px;border:1px solid var(--border);color:var(--muted2);}
+.wp-tbl td:first-child{color:var(--text);font-weight:500;font-size:9px;}.wp-hol{color:var(--accent)!important;font-weight:700;}
+.cdesc{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:14px;margin-bottom:14px;}
+.cdesc-ttl{font-size:13px;font-weight:700;line-height:1.5;margin-bottom:9px;}.cdesc-ttl strong{color:var(--accent);}
+.flist{list-style:none;display:flex;flex-direction:column;gap:8px;}
+.fitem{display:flex;gap:9px;font-size:11px;line-height:1.5;color:var(--muted2);}
+.fnum{width:17px;height:17px;background:rgba(245,166,35,.1);border:1px solid rgba(245,166,35,.3);border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:8px;color:var(--accent);font-weight:700;flex-shrink:0;margin-top:1px;}
+.fitem strong{color:var(--text);}
+.det-blk{background:var(--card);border:1px solid var(--border);border-radius:11px;overflow:hidden;margin-bottom:14px;}
+.det-hd{padding:8px 14px;font-size:9px;letter-spacing:1.5px;color:var(--muted);font-weight:600;border-bottom:1px solid var(--border);}
+.det-row{display:flex;justify-content:space-between;padding:10px 14px;border-bottom:1px solid var(--border);font-size:12px;}.det-row:last-child{border-bottom:none;}
+.det-row .lbl{color:var(--muted2);}.det-row .val{font-weight:600;font-family:'Space Mono',monospace;font-size:11px;}
+.vc-btn{display:flex;align-items:center;justify-content:center;gap:7px;width:calc(100% - 36px);margin:0 18px 28px;padding:14px;background:var(--purple);border-radius:11px;font-weight:700;font-size:13px;letter-spacing:1px;cursor:pointer;border:none;color:var(--text);font-family:'DM Sans',sans-serif;transition:all .22s;}
+.vc-btn:hover{background:var(--purple2);transform:translateY(-1px);}
+
+/* CONTENT TAB */
+.ch-sec{padding:18px 18px 10px;}.slabel{font-size:9px;letter-spacing:1.5px;color:var(--muted);font-weight:600;margin-bottom:11px;}
+.ch-list{display:flex;flex-direction:column;gap:8px;}
+.ch-item{display:flex;align-items:center;justify-content:space-between;padding:13px 14px;background:var(--card);border:1px solid var(--border);border-radius:10px;cursor:pointer;transition:all .2s;}
+.ch-item:hover{border-color:rgba(245,166,35,.4);}.ch-item:active{transform:scale(.98);}
+.ch-l{display:flex;align-items:center;gap:11px;}
+.ch-icon{width:36px;height:36px;background:rgba(245,166,35,.1);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:18px;}
+.ch-name{font-size:14px;font-weight:500;}.ch-arr{color:var(--muted);font-size:13px;transition:color .2s;}.ch-item:hover .ch-arr{color:var(--accent);}
+
+/* SUBCHAPTER */
+.sub-hd{padding:18px;background:var(--bg2);border-bottom:1px solid var(--border);}
+.sub-subject{font-size:9px;letter-spacing:1.5px;color:var(--purple2);font-weight:600;margin-bottom:5px;}.sub-title{font-size:21px;font-weight:700;}
+.sfl-list{padding:18px;display:flex;flex-direction:column;gap:11px;}
+.sfl-card{display:flex;align-items:center;gap:13px;padding:15px 16px;background:var(--card);border:1px solid var(--border);border-radius:12px;cursor:pointer;transition:all .2s;}
+.sfl-card:hover{border-color:rgba(245,166,35,.4);transform:translateX(3px);}.sfl-card:active{transform:scale(.98);}
+.sfl-icon{width:46px;height:46px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;}
+.sfl-info{flex:1;}.sfl-name{font-size:15px;font-weight:600;margin-bottom:3px;}.sfl-meta{font-size:11px;color:var(--muted2);}
+.sfl-arr{color:var(--muted);font-size:15px;transition:color .2s;}.sfl-card:hover .sfl-arr{color:var(--accent);}
+
+/* LECTURE LIST */
+.lec-hd{padding:18px;background:var(--bg2);border-bottom:1px solid var(--border);}
+.lec-subject{font-size:9px;letter-spacing:1.5px;color:var(--purple2);font-weight:600;margin-bottom:3px;}
+.lec-ttl{font-size:19px;font-weight:700;}.lec-cnt{font-size:11px;color:var(--muted2);margin-top:3px;font-family:'Space Mono',monospace;}
+.lec-list{padding:14px;display:flex;flex-direction:column;gap:9px;}
+.lec-item{display:flex;align-items:center;gap:11px;padding:13px;background:var(--card);border:1px solid var(--border);border-radius:11px;cursor:pointer;transition:all .2s;}
+.lec-item:hover{border-color:rgba(124,92,191,.5);}.lec-item:active{transform:scale(.98);}
+.lec-thumb{width:68px;height:44px;border-radius:7px;position:relative;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+.lec-thumb-bg{position:absolute;inset:0;}
+.lec-play{position:absolute;width:24px;height:24px;background:rgba(124,92,191,.92);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:8px;padding-left:2px;}
+.lec-info{flex:1;min-width:0;}
+.lec-name{font-size:12px;font-weight:500;margin-bottom:5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.lec-badge{display:inline-block;padding:2px 7px;background:rgba(124,92,191,.15);border:1px solid rgba(124,92,191,.3);border-radius:4px;font-size:8px;font-weight:700;letter-spacing:.7px;color:var(--purple2);}
+.lec-dur{font-size:10px;color:var(--muted);font-family:'Space Mono',monospace;flex-shrink:0;}
+
+/* PDF LIST */
+.pdf-list{padding:14px;display:flex;flex-direction:column;gap:9px;}
+.pdf-item{display:flex;align-items:center;gap:11px;padding:13px;background:var(--card);border:1px solid var(--border);border-radius:11px;cursor:pointer;transition:all .2s;}
+.pdf-item:hover{border-color:rgba(245,70,70,.4);}.pdf-item:active{transform:scale(.98);}
+.pdf-icon{width:42px;height:42px;background:rgba(245,70,70,.1);border:1px solid rgba(245,70,70,.25);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;}
+.pdf-info{flex:1;min-width:0;}
+.pdf-name{font-size:12px;font-weight:500;margin-bottom:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pdf-meta{font-size:10px;color:var(--muted2);}
+.pdf-badge{display:inline-block;padding:2px 7px;background:rgba(245,70,70,.12);border:1px solid rgba(245,70,70,.3);border-radius:4px;font-size:8px;font-weight:700;letter-spacing:.7px;color:#f55;}
+
+/* PLAYER */
+.player-top{display:flex;align-items:center;gap:9px;padding:11px 16px;background:var(--bg2);border-bottom:1px solid var(--border);flex-shrink:0;}
+.v-yt-wrap{width:100%;aspect-ratio:16/9;background:#000;flex-shrink:0;display:none;}
+.v-yt-wrap.active{display:block;}
+.v-yt-wrap iframe{width:100%;height:100%;border:none;display:block;}
+.vwrap{width:100%;aspect-ratio:16/9;background:#000;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.vbg{position:absolute;inset:0;background:linear-gradient(135deg,#0a0520 0%,#1a0f35 40%,#0e1a25 70%,#0a1a0e 100%);}
+.vglow{position:absolute;inset:0;background:radial-gradient(ellipse at 30% 50%,rgba(245,166,35,.18) 0%,transparent 55%),radial-gradient(ellipse at 70% 30%,rgba(124,92,191,.14) 0%,transparent 50%);}
+.vcenter{position:relative;z-index:2;background:rgba(0,0,0,.58);border:1px solid rgba(245,166,35,.25);border-radius:13px;padding:16px 22px;text-align:center;max-width:260px;backdrop-filter:blur(4px);}
+.vs-tag{font-size:8px;letter-spacing:2px;color:var(--accent);font-weight:700;margin-bottom:5px;}
+.vbatch{font-family:'Bebas Neue',sans-serif;font-size:26px;color:var(--accent);letter-spacing:2px;margin-bottom:2px;}
+.vlname{font-size:15px;font-weight:700;color:var(--text);margin-bottom:4px;}
+.vlnum{font-size:10px;color:var(--muted2);font-family:'Space Mono',monospace;}
+.vplay-ov{position:absolute;z-index:3;width:60px;height:60px;background:rgba(124,92,191,.9);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;padding-left:4px;box-shadow:0 0 30px rgba(124,92,191,.4);}
+
+/* ADMIN STYLES */
+.admin-page{display:none;position:fixed;inset:0;background:var(--bg);z-index:9999;overflow-y:auto;flex-direction:column;}
+.admin-page.active{display:flex;}
+.admin-header{display:flex;align-items:center;justify-content:space-between;padding:20px;background:var(--bg2);border-bottom:1px solid var(--border);}
+.admin-title{font-family:'Bebas Neue',sans-serif;font-size:24px;color:var(--accent);letter-spacing:1px;}
+.admin-body{flex:1;padding:20px;overflow-y:auto;}
+.admin-tabs{display:flex;gap:10px;margin-bottom:20px;border-bottom:1px solid var(--border);padding-bottom:10px;}
+.admin-tab{padding:10px 20px;background:transparent;border:none;color:var(--muted);cursor:pointer;font-weight:600;transition:all .2s;border-bottom:2px solid transparent;}
+.admin-tab.active{color:var(--accent);border-bottom-color:var(--accent);}
+.admin-form{display:none;background:var(--card);border:1px solid var(--border);border-radius:12px;padding:20px;margin-bottom:20px;}
+.admin-form.active{display:block;}
+.admin-form h3{font-size:16px;font-weight:700;margin-bottom:15px;color:var(--accent);}
+.form-group{margin-bottom:15px;}
+.form-group label{display:block;font-size:12px;font-weight:600;margin-bottom:5px;color:var(--muted);}
+.form-group input,.form-group textarea,.form-group select{width:100%;padding:10px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;color:var(--text);font-family:'DM Sans',sans-serif;font-size:12px;transition:border-color .2s;}
+.form-group input:focus,.form-group textarea:focus,.form-group select:focus{outline:none;border-color:var(--accent);}
+.admin-btn{padding:10px 20px;background:var(--purple);border:none;border-radius:8px;color:var(--text);cursor:pointer;font-weight:600;transition:all .2s;font-family:'DM Sans',sans-serif;}
+.admin-btn:hover{background:var(--accent);color:#000;transform:translateY(-1px);}
+.admin-btn.danger{background:#f54545;}
+.admin-list{display:flex;flex-direction:column;gap:10px;}
+.admin-item{display:flex;justify-content:space-between;align-items:center;padding:12px;background:var(--bg3);border:1px solid var(--border);border-radius:8px;}
+.admin-item-info{flex:1;}
+.admin-item-name{font-weight:600;font-size:13px;margin-bottom:3px;}
+.admin-item-meta{font-size:10px;color:var(--muted);}
+.admin-item-actions{display:flex;gap:8px;}
+.admin-item-actions button{padding:6px 12px;background:var(--purple);border:none;border-radius:6px;color:var(--text);cursor:pointer;font-size:11px;font-weight:600;}
+.admin-item-actions button.danger{background:#f54545;}
+
+@media(max-width:768px){
+  .admin-tabs{flex-wrap:wrap;}
+  .admin-tab{padding:8px 15px;font-size:12px;}
+}
+</style>
+</head>
+<body>
+
+<!-- ADMIN PANEL -->
+<div class="admin-page" id="admin-page">
+  <div class="admin-header">
+    <div class="admin-title">⚙️ Admin Panel</div>
+    <button class="admin-btn danger" onclick="closeAdmin()">Close</button>
+  </div>
+  
+  <div class="admin-body">
+    <div class="admin-tabs">
+      <button class="admin-tab active" onclick="switchAdminTab('batches')">Batches</button>
+      <button class="admin-tab" onclick="switchAdminTab('chapters')">Chapters</button>
+      <button class="admin-tab" onclick="switchAdminTab('lectures')">Lectures</button>
+      <button class="admin-tab" onclick="switchAdminTab('pdfs')">PDFs</button>
+    </div>
+
+    <!-- BATCHES SECTION -->
+    <div class="admin-form active" id="admin-batches">
+      <h3>Add/Edit Batch</h3>
+      <form onsubmit="saveBatch(event)">
+        <div class="form-group">
+          <label>Batch Name</label>
+          <input type="text" id="batch-name" placeholder="e.g., PRARAMBH" required>
+        </div>
+        <div class="form-group">
+          <label>Class</label>
+          <input type="text" id="batch-class" placeholder="e.g., 11th Science" required>
+        </div>
+        <div class="form-group">
+          <label>Price (₹)</label>
+          <input type="number" id="batch-price" placeholder="9999" required>
+        </div>
+        <button type="submit" class="admin-btn">Add Batch</button>
+      </form>
+      
+      <h3 style="margin-top:20px;">Existing Batches</h3>
+      <div class="admin-list" id="batch-list"></div>
+    </div>
+
+    <!-- CHAPTERS SECTION -->
+    <div class="admin-form" id="admin-chapters">
+      <h3>Add/Edit Chapter</h3>
+      <form onsubmit="saveChapter(event)">
+        <div class="form-group">
+          <label>Select Batch</label>
+          <select id="chapter-batch" required onchange="updateChapterBatch()">
+            <option value="">Choose...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Chapter Name</label>
+          <input type="text" id="chapter-name" placeholder="e.g., Motion" required>
+        </div>
+        <button type="submit" class="admin-btn">Add Chapter</button>
+      </form>
+      
+      <h3 style="margin-top:20px;">Existing Chapters</h3>
+      <div class="admin-list" id="chapter-list"></div>
+    </div>
+
+    <!-- LECTURES SECTION -->
+    <div class="admin-form" id="admin-lectures">
+      <h3>Add Lecture</h3>
+      <form onsubmit="saveLecture(event)">
+        <div class="form-group">
+          <label>Select Batch</label>
+          <select id="lecture-batch" required onchange="updateLectureBatch()">
+            <option value="">Choose...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Select Chapter</label>
+          <select id="lecture-chapter" required>
+            <option value="">Choose...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Lecture Name</label>
+          <input type="text" id="lecture-name" placeholder="e.g., Introduction - Motion" required>
+        </div>
+        <div class="form-group">
+          <label>Duration (HH:MM:SS)</label>
+          <input type="text" id="lecture-duration" placeholder="1:30:45">
+        </div>
+        <div class="form-group">
+          <label>Video URL (YouTube or MP4)</label>
+          <input type="url" id="lecture-url" placeholder="https://..." required>
+        </div>
+        <button type="submit" class="admin-btn">Add Lecture</button>
+      </form>
+      
+      <h3 style="margin-top:20px;">Existing Lectures</h3>
+      <div class="admin-list" id="lecture-list"></div>
+    </div>
+
+    <!-- PDFS SECTION -->
+    <div class="admin-form" id="admin-pdfs">
+      <h3>Add PDF</h3>
+      <form onsubmit="savePDF(event)">
+        <div class="form-group">
+          <label>Select Batch</label>
+          <select id="pdf-batch" required onchange="updatePDFBatch()">
+            <option value="">Choose...</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>PDF Name</label>
+          <input type="text" id="pdf-name" placeholder="e.g., Motion - Notes" required>
+        </div>
+        <div class="form-group">
+          <label>Type</label>
+          <select id="pdf-type" required>
+            <option value="">Choose...</option>
+            <option value="notes">Notes</option>
+            <option value="pq">Previous Qs</option>
+            <option value="imp">Important Qs</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>PDF URL</label>
+          <input type="url" id="pdf-url" placeholder="https://..." required>
+        </div>
+        <button type="submit" class="admin-btn">Add PDF</button>
+      </form>
+      
+      <h3 style="margin-top:20px;">Existing PDFs</h3>
+      <div class="admin-list" id="pdf-list"></div>
+    </div>
+  </div>
+</div>
+
+<!-- MAIN WEBSITE PAGES -->
+<div class='page active' id='pg-home'>
+<div class='topbar'>
+<div class='tl'><div class='logo'><span>Ayush</span>CoderZ</div></div>
+<div class='ac-icon' onclick="openAdmin()" title="Admin Panel">⚙️</div>
+</div>
+<div style='flex:1;overflow-y:auto;'>
+<div class='home-hero'><h1 class='home-h'>Welcome to <span class='hl'>AyushCoderZ</span></h1><p class='home-sub'>Learn from expert instructors with live classes, recorded sessions, and detailed study materials.</p></div>
+<div class='divider'></div>
+<div class='plist'>
+<div class='pcard' onclick="go('pg-batches')">
+<div class='picon' style='background:rgba(245,166,35,0.2);color:var(--accent);'>📚</div>
+<div class='pinfo'>
+<div class='pname'>Explore Courses</div>
+<div class='pmeta'>View all available batches</div>
+</div>
+<div class='parr'>→</div>
+</div>
+</div>
+</div>
+</div>
+
+<div class='page' id='pg-batches'>
+<div class='topbar'>
+<button class='back-btn' onclick="go('pg-home')">← Back</button>
+<span style='font-size:12px;color:var(--muted);' id='batch-title'>Batches</span>
+</div>
+<div style='flex:1;overflow-y:auto;'>
+<div class='bhero'>
+<div class='lbadge'><span class='ldot'></span>Live Courses</div>
+<h1 class='btitle'>Explore <span class='ac'>Batches</span></h1>
+<div class='btagline'>Learn from the <span class='or'>best instructors</span></div>
+</div>
+<div class='blist' id='batches'></div>
+</div>
+</div>
+
+<div class='page' id='pg-batch-detail'>
+<div class='topbar'>
+<button class='back-btn' onclick="go('pg-batches')">← Back</button>
+</div>
+<div style='flex:1;overflow-y:auto;display:flex;flex-direction:column;'>
+<div class='chero' id='batch-detail-hero'></div>
+<div class='tabs'>
+<div class='tab active' onclick="swTab('ov')">Overview</div>
+<div class='tab' onclick="swTab('ch')">Chapters</div>
+</div>
+<div style='flex:1;overflow-y:auto;'>
+<div id='ov' class='ov-sec'></div>
+<div id='ch' class='ch-sec' style='display:none;'></div>
+</div>
+</div>
+</div>
+
+<div class='page' id='pg-chapter-detail'>
+<div class='topbar'>
+<button class='back-btn' onclick="go('pg-batch-detail')">← Back</button>
+</div>
+<div style='flex:1;overflow-y:auto;display:flex;flex-direction:column;'>
+<div class='lec-hd' id='chapter-header'></div>
+<div class='tabs'>
+<div class='tab active' onclick="swTab2('lecs')">Lectures</div>
+<div class='tab' onclick="swTab2('pdfs')">PDFs</div>
+</div>
+<div style='flex:1;overflow-y:auto;'>
+<div id='lecs' class='lec-list'></div>
+<div id='pdfs' class='pdf-list' style='display:none;'></div>
+</div>
+</div>
+</div>
+
+<div class='page' id='pg-player'>
+<div class='topbar'>
+<button class='back-btn' onclick="playerBack()">← Back</button>
+</div>
+<div class='v-yt-wrap' id='v-yt-wrap'><iframe id='v-yt-iframe' allow='autoplay; encrypted-media' allowfullscreen></iframe></div>
+<div class='vwrap' id='v-poster-wrap'>
+<div class='vbg'></div>
+<div class='vglow'></div>
+<div class='vplay-ov' id='v-play-ov' onclick='togglePlay()'><div style='text-align:center;'>▶</div></div>
+<div class='vcenter'>
+<div class='vs-tag' id='v-stag'>BATCH</div>
+<div class='vbatch' id='v-title'>Lecture</div>
+<div class='vlname' id='v-lname'>Chapter</div>
+<div class='vlnum' id='v-lnum'>Duration: <span id='v-total'>0:00</span></div>
+</div>
+</div>
+<div style='position:absolute;bottom:0;left:0;right:0;background:var(--bg2);border-top:1px solid var(--border);padding:12px;' id='v-ctrl' style='display:none;'>
+<div style='display:flex;align-items:center;gap:10px;margin-bottom:10px;'>
+<button style='padding:8px 16px;background:var(--purple);border:none;border-radius:6px;color:var(--text);cursor:pointer;font-weight:600;flex-shrink:0;' id='v-main-btn' onclick='togglePlay()'>▶</button>
+<button style='padding:8px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--muted);cursor:pointer;font-size:11px;font-weight:600;flex-shrink:0;' onclick='skipBack()'>-10s</button>
+<button style='padding:8px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--muted);cursor:pointer;font-size:11px;font-weight:600;flex-shrink:0;' onclick='skipFwd()'>+10s</button>
+<button style='padding:8px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--muted);cursor:pointer;font-size:11px;font-weight:600;margin-left:auto;flex-shrink:0;' id='v-spd' onclick='cycleSpeed()'>1x</button>
+<button style='padding:8px 12px;background:var(--bg3);border:1px solid var(--border);border-radius:6px;color:var(--muted);cursor:pointer;font-size:11px;font-weight:600;flex-shrink:0;' onclick='toggleFS()'>⛶</button>
+</div>
+<div style='background:var(--bg3);border-radius:6px;height:4px;cursor:pointer;position:relative;margin-bottom:8px;' id='v-track'>
+<div style='background:var(--accent);height:100%;border-radius:6px;' id='v-fill'></div>
+<div style='background:var(--accent);width:12px;height:12px;border-radius:50%;position:absolute;top:50%;transform:translateY(-50%);' id='v-handle'></div>
+</div>
+<div style='display:flex;justify-content:space-between;font-size:10px;color:var(--muted);'><span id='v-curr'>0:00</span><span id='v-total'>0:00</span></div>
+</div>
+<div class='player-info' style='padding:18px;'>
+<h3 id='v-meta' style='font-size:12px;color:var(--muted);margin-bottom:5px;'>Lecture</h3>
+<p style='font-size:13px;color:var(--text);'>Playing...</p>
+</div>
+</div>
+
+<script>
+// ====== ADMIN DATA ======
+let adminPassword='password123';
+let adminLoggedIn=false;
+let DATA={batches:[]};
+
+// Load data from localStorage
+function loadData(){
+  const saved=localStorage.getItem('ayushcoderz-data');
+  if(saved){
+    try{DATA=JSON.parse(saved);}catch(e){DATA={batches:[]};}
+  } else {
+    DATA={batches:[]};
+  }
+}
+
+// Save data to localStorage
+function saveData(){
+  localStorage.setItem('ayushcoderz-data',JSON.stringify(DATA));
+  location.reload();
+}
+
+// ====== ADMIN PANEL ======
+function openAdmin(){
+  const pass=prompt('Enter Admin Password:');
+  if(pass===adminPassword){
+    adminLoggedIn=true;
+    document.getElementById('admin-page').classList.add('active');
+    refreshAdminLists();
+  } else {
+    alert('❌ Wrong password!');
+  }
+}
+
+function closeAdmin(){
+  adminLoggedIn=false;
+  document.getElementById('admin-page').classList.remove('active');
+}
+
+function switchAdminTab(tab){
+  document.querySelectorAll('.admin-form').forEach(f=>f.classList.remove('active'));
+  document.querySelectorAll('.admin-tab').forEach(t=>t.classList.remove('active'));
+  document.getElementById('admin-'+tab).classList.add('active');
+  event.target.classList.add('active');
+  
+  if(tab==='batches') updateBatchSelect();
+  if(tab==='chapters') updateChapterBatchSelect();
+  if(tab==='lectures') updateLectureBatchSelect();
+  if(tab==='pdfs') updatePDFBatchSelect();
+}
+
+function saveBatch(e){
+  e.preventDefault();
+  const name=document.getElementById('batch-name').value;
+  const cls=document.getElementById('batch-class').value;
+  const price=document.getElementById('batch-price').value;
+  
+  DATA.batches.push({
+    id:Date.now(),
+    name,
+    class:cls,
+    price,
+    chapters:[]
+  });
+  
+  saveData();
+}
+
+function saveBatchEdit(batchId){
+  const name=prompt('New name?',DATA.batches.find(b=>b.id==batchId).name);
+  if(name){
+    DATA.batches.find(b=>b.id==batchId).name=name;
+    saveData();
+  }
+}
+
+function deleteBatch(batchId){
+  if(confirm('Delete batch?')){
+    DATA.batches=DATA.batches.filter(b=>b.id!=batchId);
+    saveData();
+  }
+}
+
+function updateBatchSelect(){
+  const sel=document.getElementById('chapter-batch');
+  sel.innerHTML='<option value="">Choose...</option>'+DATA.batches.map(b=>`<option value="${b.id}">${b.name}</option>`).join('');
+  refreshBatchList();
+}
+
+function updateChapterBatchSelect(){
+  const sel=document.getElementById('chapter-batch');
+  sel.innerHTML='<option value="">Choose...</option>'+DATA.batches.map(b=>`<option value="${b.id}">${b.name}</option>`).join('');
+}
+
+function updateLectureBatchSelect(){
+  const sel=document.getElementById('lecture-batch');
+  sel.innerHTML='<option value="">Choose...</option>'+DATA.batches.map(b=>`<option value="${b.id}">${b.name}</option>`).join('');
+  refreshLectureList();
+}
+
+function updatePDFBatchSelect(){
+  const sel=document.getElementById('pdf-batch');
+  sel.innerHTML='<option value="">Choose...</option>'+DATA.batches.map(b=>`<option value="${b.id}">${b.name}</option>`).join('');
+  refreshPDFList();
+}
+
+function updateChapterBatch(){
+  const batchId=document.getElementById('chapter-batch').value;
+  refreshChapterList();
+}
+
+function updateLectureBatch(){
+  const batchId=document.getElementById('lecture-batch').value;
+  const batch=DATA.batches.find(b=>b.id==batchId);
+  const sel=document.getElementById('lecture-chapter');
+  sel.innerHTML='<option value="">Choose...</option>'+(batch?.chapters||[]).map(c=>`<option value="${c.id}">${c.name}</option>`).join('');
+  refreshLectureList();
+}
+
+function saveChapter(e){
+  e.preventDefault();
+  const batchId=document.getElementById('chapter-batch').value;
+  const name=document.getElementById('chapter-name').value;
+  const batch=DATA.batches.find(b=>b.id==batchId);
+  if(batch){
+    if(!batch.chapters) batch.chapters=[];
+    batch.chapters.push({id:Date.now(),name,lectures:[]});
+    document.getElementById('chapter-name').value='';
+    saveData();
+  }
+}
+
+function deleteChapter(batchId,chapterId){
+  if(confirm('Delete?')){
+    const batch=DATA.batches.find(b=>b.id==batchId);
+    if(batch) batch.chapters=batch.chapters.filter(c=>c.id!=chapterId);
+    saveData();
+  }
+}
+
+function saveLecture(e){
+  e.preventDefault();
+  const batchId=document.getElementById('lecture-batch').value;
+  const chapterId=document.getElementById('lecture-chapter').value;
+  const name=document.getElementById('lecture-name').value;
+  const dur=document.getElementById('lecture-duration').value;
+  const url=document.getElementById('lecture-url').value;
+  
+  const batch=DATA.batches.find(b=>b.id==batchId);
+  const chapter=batch?.chapters?.find(c=>c.id==chapterId);
+  if(chapter){
+    if(!chapter.lectures) chapter.lectures=[];
+    chapter.lectures.push({id:Date.now(),name,dur,url});
+    document.getElementById('lecture-name').value='';
+    document.getElementById('lecture-duration').value='';
+    document.getElementById('lecture-url').value='';
+    saveData();
+  }
+}
+
+function deleteLecture(batchId,chapterId,lectureId){
+  if(confirm('Delete?')){
+    const batch=DATA.batches.find(b=>b.id==batchId);
+    const chapter=batch?.chapters?.find(c=>c.id==chapterId);
+    if(chapter) chapter.lectures=chapter.lectures.filter(l=>l.id!=lectureId);
+    saveData();
+  }
+}
+
+function savePDF(e){
+  e.preventDefault();
+  const batchId=document.getElementById('pdf-batch').value;
+  const name=document.getElementById('pdf-name').value;
+  const type=document.getElementById('pdf-type').value;
+  const url=document.getElementById('pdf-url').value;
+  
+  const batch=DATA.batches.find(b=>b.id==batchId);
+  if(batch){
+    if(!batch.pdfs) batch.pdfs=[];
+    batch.pdfs.push({id:Date.now(),name,type,url});
+    document.getElementById('pdf-name').value='';
+    document.getElementById('pdf-type').value='';
+    document.getElementById('pdf-url').value='';
+    saveData();
+  }
+}
+
+function deletePDF(batchId,pdfId){
+  if(confirm('Delete?')){
+    const batch=DATA.batches.find(b=>b.id==batchId);
+    if(batch) batch.pdfs=batch.pdfs.filter(p=>p.id!=pdfId);
+    saveData();
+  }
+}
+
+function refreshAdminLists(){
+  updateBatchSelect();
+  updateChapterBatchSelect();
+  updateLectureBatchSelect();
+  updatePDFBatchSelect();
+}
+
+function refreshBatchList(){
+  const html=DATA.batches.map(b=>`
+    <div class='admin-item'>
+      <div class='admin-item-info'>
+        <div class='admin-item-name'>${b.name}</div>
+        <div class='admin-item-meta'>${b.class} • ₹${b.price}</div>
+      </div>
+      <div class='admin-item-actions'>
+        <button onclick="saveBatchEdit(${b.id})">Edit</button>
+        <button class='danger' onclick="deleteBatch(${b.id})">Delete</button>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('batch-list').innerHTML=html||'<p style="color:var(--muted);">No batches</p>';
+}
+
+function refreshChapterList(){
+  const batchId=document.getElementById('chapter-batch').value;
+  const batch=DATA.batches.find(b=>b.id==batchId);
+  const html=(batch?.chapters||[]).map(c=>`
+    <div class='admin-item'>
+      <div class='admin-item-info'>
+        <div class='admin-item-name'>${c.name}</div>
+        <div class='admin-item-meta'>${(c.lectures||[]).length} lectures</div>
+      </div>
+      <div class='admin-item-actions'>
+        <button class='danger' onclick="deleteChapter(${batchId},${c.id})">Delete</button>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('chapter-list').innerHTML=html||'<p style="color:var(--muted);">No chapters</p>';
+}
+
+function refreshLectureList(){
+  const batchId=document.getElementById('lecture-batch').value;
+  const batch=DATA.batches.find(b=>b.id==batchId);
+  let html='';
+  (batch?.chapters||[]).forEach(ch=>{
+    (ch.lectures||[]).forEach(l=>{
+      html+=`
+        <div class='admin-item'>
+          <div class='admin-item-info'>
+            <div class='admin-item-name'>${l.name}</div>
+            <div class='admin-item-meta'>${ch.name} • ${l.dur}</div>
+          </div>
+          <div class='admin-item-actions'>
+            <button class='danger' onclick="deleteLecture(${batchId},${ch.id},${l.id})">Delete</button>
+          </div>
+        </div>
+      `;
+    });
+  });
+  document.getElementById('lecture-list').innerHTML=html||'<p style="color:var(--muted);">No lectures</p>';
+}
+
+function refreshPDFList(){
+  const batchId=document.getElementById('pdf-batch').value;
+  const batch=DATA.batches.find(b=>b.id==batchId);
+  const html=(batch?.pdfs||[]).map(p=>`
+    <div class='admin-item'>
+      <div class='admin-item-info'>
+        <div class='admin-item-name'>${p.name}</div>
+        <div class='admin-item-meta'>${p.type}</div>
+      </div>
+      <div class='admin-item-actions'>
+        <button class='danger' onclick="deletePDF(${batchId},${p.id})">Delete</button>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('pdf-list').innerHTML=html||'<p style="color:var(--muted);">No PDFs</p>';
+}
+
+// ====== WEBSITE PAGES ======
+const BATCHES=DATA.batches;
+const CHAPTERS={'prarambh':[]};
+const LECTURES={};
+const PDFS={};
+let prevPage='pg-home';
+
+function go(p){
+  document.querySelectorAll('.page').forEach(pg=>pg.classList.remove('active'));
+  document.getElementById(p).classList.add('active');
+  if(p==='pg-batches') renderBatches();
+  prevPage=p;
+}
+
+function swTab(t){
+  document.querySelectorAll('.tab').forEach(tb=>tb.classList.remove('active'));
+  document.querySelectorAll('#ov,#ch').forEach(s=>s.style.display='none');
+  event.target.classList.add('active');
+  document.getElementById(t).style.display='';
+}
+
+function swTab2(t){
+  document.querySelectorAll('.tab').forEach(tb=>tb.classList.remove('active'));
+  document.querySelectorAll('#lecs,#pdfs').forEach(s=>s.style.display='none');
+  event.target.classList.add('active');
+  document.getElementById(t).style.display='';
+}
+
+function renderBatches(){
+  const html=DATA.batches.map(b=>`
+    <div class='bcard' onclick="viewBatch(${b.id})">
+      <div class='bthumb'>
+        <div class='bthumb-grd'></div>
+        <div class='bthumb-name'>${b.name.substring(0,4).toUpperCase()}</div>
+        <span class='bclass-badge'>${b.class}</span>
+        <div class='bprice-badge'><div class='bprice-new'>₹${b.price}</div></div>
+      </div>
+      <div class='bcard-body'>
+        <div class='bcard-tag'><span class='tdot'></span>${(b.chapters||[]).length} Chapters</div>
+        <h3 class='bcard-title'>${b.name}</h3>
+        <div class='bcard-meta'><div class='mitem'>📚 ${(b.chapters||[]).reduce((t,c)=>(c.lectures||[]).length+t,0)} Lectures</div></div>
+        <div class='bcard-foot'><span class='sl'>View</span><button class='arr-btn' style='cursor:pointer;'>→</button></div>
+      </div>
+    </div>
+  `).join('');
+  document.getElementById('batches').innerHTML=html;
+}
+
+function viewBatch(batchId){
+  const batch=DATA.batches.find(b=>b.id==batchId);
+  if(!batch) return;
+  
+  document.getElementById('batch-detail-hero').innerHTML=`<div class='clabel'><span class='dot'></span>${batch.class}</div><h2 class='ctitle'>${batch.name}</h2><div style='margin-top:12px;color:var(--muted2);font-size:11px;'>₹${batch.price}</div>`;
+  
+  const ovHtml=`
+    <div class='cdesc'>
+      <div class='cdesc-ttl'>Batch Info</div>
+      <ul class='flist'>
+        <li class='fitem'><span class='fnum'>1</span><strong>Class:</strong> ${batch.class}</li>
+        <li class='fitem'><span class='fnum'>2</span><strong>Chapters:</strong> ${(batch.chapters||[]).length}</li>
+        <li class='fitem'><span class='fnum'>3</span><strong>Lectures:</strong> ${(batch.chapters||[]).reduce((t,c)=>(c.lectures||[]).length+t,0)}</li>
+        <li class='fitem'><span class='fnum'>4</span><strong>Price:</strong> ₹${batch.price}</li>
+      </ul>
+    </div>
+  `;
+  document.getElementById('ov').innerHTML=ovHtml;
+  
+  const chHtml=`<div class='ch-list'>${(batch.chapters||[]).map(c=>`
+    <div class='ch-item' onclick="viewChapter(${batch.id},${c.id})">
+      <div class='ch-l'>
+        <div class='ch-icon'>📖</div>
+        <div class='ch-name'>${c.name}</div>
+      </div>
+      <div class='ch-arr'>→</div>
+    </div>
+  `).join('')}</div>`;
+  document.getElementById('ch').innerHTML=chHtml;
+  
+  go('pg-batch-detail');
+}
+
+function viewChapter(batchId,chapterId){
+  const batch=DATA.batches.find(b=>b.id==batchId);
+  const chapter=batch?.chapters?.find(c=>c.id==chapterId);
+  if(!chapter) return;
+  
+  document.getElementById('chapter-header').innerHTML=`
+    <div class='lec-subject'>${batch.name}</div>
+    <h2 class='lec-ttl'>${chapter.name}</h2>
+    <div class='lec-cnt'>${(chapter.lectures||[]).length} lectures</div>
+  `;
+  
+  const lecHtml=(chapter.lectures||[]).map(l=>`
+    <div class='lec-item' onclick="openVideo({name:'${l.name}',dur:'${l.dur}',url:'${l.url}'},'${chapter.name}')">
+      <div class='lec-thumb'><div class='lec-play'>▶</div></div>
+      <div class='lec-info'><div class='lec-name'>${l.name}</div><span class='lec-badge'>${chapter.name}</span></div>
+      <div class='lec-dur'>${l.dur}</div>
+    </div>
+  `).join('');
+  document.getElementById('lecs').innerHTML=lecHtml;
+  
+  const pdfHtml=(batch.pdfs||[]).map(p=>`
+    <div class='pdf-item' onclick="viewPdf({url:'${p.url}'})">
+      <div class='pdf-icon'>📄</div>
+      <div class='pdf-info'><div class='pdf-name'>${p.name}</div><div class='pdf-meta'>${p.type}</div></div>
+      <div class='pdf-badge'>${p.type.toUpperCase()}</div>
+    </div>
+  `).join('');
+  document.getElementById('pdfs').innerHTML=pdfHtml;
+  
+  go('pg-chapter-detail');
+}
+
+function viewPdf(p){
+  if(p.url&&p.url.trim()!=='') window.open(p.url,'_blank');
+  else alert('PDF link not found');
+}
+
+function getYouTubeId(url){
+  const m=url.match(/(?:youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/)|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+  return m?m[1]:null;
+}
+
+const SPEEDS=[0.5,0.75,1,1.25,1.5,1.75,2];
+let speedIdx=2, speed=1, curTime=0, totalDur=0, isPlaying=false, pInterval;
+
+function openVideo(lec,chapter){
+  document.getElementById('v-title').textContent=lec.name;
+  document.getElementById('v-meta').textContent=chapter+' · AyushCoderZ';
+  document.getElementById('v-lname').textContent=lec.name.split(' - ')[0];
+  document.getElementById('v-lnum').textContent=lec.name.split(' - ')[1]||'Lecture';
+  document.getElementById('v-stag').textContent=chapter.toUpperCase();
+  document.getElementById('v-total').textContent=lec.dur;
+
+  const ytWrap=document.getElementById('v-yt-wrap');
+  const ytFrame=document.getElementById('v-yt-iframe');
+  const posterWrap=document.getElementById('v-poster-wrap');
+  const ctrl=document.getElementById('v-ctrl');
+
+  const ytId=lec.url?getYouTubeId(lec.url):null;
+
+  if(ytId){
+    ytFrame.src='https://www.youtube.com/embed/'+ytId+'?autoplay=1&rel=0&modestbranding=1';
+    ytWrap.classList.add('active');
+    posterWrap.style.display='none';
+    ctrl.style.display='none';
+  } else if(lec.url&&lec.url.trim()!==''){
+    ytFrame.src=lec.url;
+    ytWrap.classList.add('active');
+    posterWrap.style.display='none';
+    ctrl.style.display='none';
+  } else {
+    ytWrap.classList.remove('active');
+    ytFrame.src='';
+    posterWrap.style.display='';
+    ctrl.style.display='';
+    const t=lec.dur.split(':');
+    totalDur=t.length===3?+t[0]*3600+ +t[1]*60+ +t[2]:+t[0]*60+ +t[1];
+    stopPlayer();curTime=0;speed=1;speedIdx=2;
+    document.getElementById('v-spd').textContent='1x';
+    updateUI();
+  }
+  go('pg-player');
+}
+
+function playerBack(){
+  stopPlayer();
+  document.getElementById('v-yt-iframe').src='';
+  document.getElementById('v-yt-wrap').classList.remove('active');
+  document.getElementById('v-poster-wrap').style.display='';
+  document.getElementById('v-ctrl').style.display='';
+  go(prevPage);
+}
+
+function togglePlay(){
+  isPlaying=!isPlaying;updateUI();
+  if(isPlaying){pInterval=setInterval(()=>{curTime+=speed;if(curTime>=totalDur){curTime=totalDur;isPlaying=false;clearInterval(pInterval);}updateProgress();},1000);}
+  else clearInterval(pInterval);
+}
+
+function stopPlayer(){isPlaying=false;clearInterval(pInterval);}
+
+function updateUI(){document.getElementById('v-main-btn').textContent=isPlaying?'⏸':'▶';document.getElementById('v-play-ov').style.display=isPlaying?'none':'flex';updateProgress();}
+
+function updateProgress(){const p=totalDur>0?Math.min((curTime/totalDur)*100,100):0;document.getElementById('v-fill').style.width=p+'%';document.getElementById('v-handle').style.left='calc('+p+'% - 6px)';document.getElementById('v-curr').textContent=fmt(Math.floor(curTime));}
+
+function fmt(s){const h=Math.floor(s/3600),m=Math.floor((s%3600)/60),sec=s%60;return h>0?h+':'+pad(m)+':'+pad(sec):pad(m)+':'+pad(sec);}
+
+function pad(n){return n.toString().padStart(2,'0');}
+
+function skipBack(){curTime=Math.max(0,curTime-10);updateProgress();}
+
+function skipFwd(){curTime=Math.min(totalDur,curTime+10);updateProgress();}
+
+function cycleSpeed(){speedIdx=(speedIdx+1)%SPEEDS.length;speed=SPEEDS[speedIdx];document.getElementById('v-spd').textContent=speed+'x';if(isPlaying){clearInterval(pInterval);pInterval=setInterval(()=>{curTime+=speed;if(curTime>=totalDur){curTime=totalDur;isPlaying=false;clearInterval(pInterval);}updateProgress();},1000);}}
+
+function toggleFS(){const el=document.getElementById('v-yt-wrap').classList.contains('active')?document.getElementById('v-yt-iframe'):document.getElementById('pg-player');if(!document.fullscreenElement)el.requestFullscreen&&el.requestFullscreen();else document.exitFullscreen&&document.exitFullscreen();}
+
+// Batch img handler
+document.addEventListener('DOMContentLoaded',()=>{
+  loadData();
+  document.querySelectorAll('.bthumb-img').forEach(img=>{
+    if(img.src&&img.src!==window.location.href){img.style.display='block';}
+    img.addEventListener('load',()=>{img.style.display='block';});
+    img.addEventListener('error',()=>{img.style.display='none';});
+  });
+
+  let dragging=false;
+  function seek(cx){const t=document.getElementById('v-track'),r=t.getBoundingClientRect(),p=Math.max(0,Math.min(1,(cx-r.left)/r.width));curTime=p*totalDur;updateProgress();}
+  const tr=document.getElementById('v-track');
+  tr.addEventListener('mousedown',e=>{dragging=true;seek(e.clientX);});
+  tr.addEventListener('touchstart',e=>{dragging=true;seek(e.touches[0].clientX);},{passive:true});
+  document.addEventListener('mousemove',e=>{if(dragging)seek(e.clientX);});
+  document.addEventListener('touchmove',e=>{if(dragging)seek(e.touches[0].clientX);},{passive:true});
+  document.addEventListener('mouseup',()=>dragging=false);
+  document.addEventListener('touchend',()=>dragging=false);
+});
+</script>
+</body>
+</html>
