@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AyushCoderZ Player</title>
+    <style>
+        body, html { margin: 0; padding: 0; height: 100%; width: 100%; overflow: hidden; background: #000; }
+        iframe { width: 100%; height: 100%; border: none; }
+        #error { color: #f5a623; text-align: center; padding: 20px; font-family: sans-serif; display: none; }
+    </style>
+</head>
+<body>
+    <div id="error">Link sahi nahi hai!</div>
+    <iframe id="proxyPlayer" referrerpolicy="no-referrer" allowfullscreen="true" allow="autoplay; fullscreen"></iframe>
+
+    <script>
+        function getUrl() {
+            const currentUrl = window.location.href;
+            const splitKey = "url=";
+            if (currentUrl.includes(splitKey)) {
+                // 'url=' ke baad ka sab kuch ek saath uthao
+                return currentUrl.split(splitKey)[1];
+            }
+            return null;
+        }
+
+        const videoLink = getUrl();
+        if (videoLink) {
+            // Bina kisi decoding ke direct link dalo
+            document.getElementById('proxyPlayer').src = decodeURIComponent(videoLink);
+        } else {
+            document.getElementById('error').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
